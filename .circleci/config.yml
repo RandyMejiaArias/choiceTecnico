@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   setup:
     docker:
-      - image: cimg/node:18.17.1
+      - image: cimg/node:18.16.1
     steps:
       - checkout
       - run:
@@ -12,7 +12,7 @@ jobs:
 
   install_dependencies:
     docker:
-      - image: cimg/node:18.17.1
+      - image: cimg/node:18.16.1
     steps:
       - checkout
       - run:
@@ -21,7 +21,7 @@ jobs:
 
   run_tests:
     docker:
-      - image: cimg/node:18.17.1
+      - image: cimg/node:18.16.1
     steps:
       - checkout
       - run:
@@ -30,7 +30,7 @@ jobs:
 
   setup_env_vars:
     docker:
-      - image: cimg/node:18.17.1
+      - image: cimg/node:18.16.1
     steps:
       - checkout
       - run:
