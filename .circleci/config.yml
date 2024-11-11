@@ -17,7 +17,9 @@ jobs:
       - checkout
       - run:
           name: Instalar dependencias
-          command: npm install
+          command: | 
+            npm install 
+            npm ls mocha
 
   run_tests:
     docker:
