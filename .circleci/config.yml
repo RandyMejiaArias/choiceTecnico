@@ -1,0 +1,77 @@
+version: 2.1
+
+jobs:
+  setup:
+    docker:
+      - image: cimg/node:18.20.0
+    steps:
+      - checkout
+      - run:
+          name: Configurar entorno de pruebas
+          command: echo "Configurando entorno de pruebas..."
+
+  install_dependencies:
+    docker:
+      - image: cimg/node:18.20.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
+      - run:
+          name: Instalar dependencias
+          command: | 
+            npm install 
+            npm ls chai
+
+  run_tests:
+    docker:
+      - image: cimg/node:18.20.0
+    parallelism: 4
+    steps:
+      - checkout
+      - run:
+          name: Ejecutar pruebas
+          command: |
+            npx mocha --timeout 15000 src/test/*.js --exit $(circleci tests split --split-by=timings)
+
+  setup_env_vars:
+    docker:
+      - image: cimg/node:18.20.0
+    steps:
+      - checkout
+      - run:
+          name: Configurar variables de entorno
+          command: |
+            echo 'export API_URL="https://echo-serv.tbxnet.com/v1/secret"' >> $BASH_ENV
+            source $BASH_ENV
+      - run:
+          name: Verificar variables de entorno
+          command: |
+            echo "API_URL: $API_URL"
+
+workflows:
+  version: 2
+
+  # Workflow para ejecutar pruebas
+  test_workflow:
+    jobs:
+      - setup
+      - install_dependencies:
+          requires:
+            - setup
+      - run_tests:
+          requires:
+            - install_dependencies
+
+  # Workflow para configurar variables de entorno
+  env_workflow:
+    jobs:
+      - setup
+      - install_dependencies:
+          requires:
+            - setup
+      - setup_env_vars:
+          requires:
+            - install_dependencies
