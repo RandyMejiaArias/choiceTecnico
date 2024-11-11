@@ -1,15 +1,19 @@
-import * as chai from "chai";
-import {default as chaiHttp, request} from "chai-http";
-chai.use(chaiHttp);
-
+import * as chai from 'chai'
+import chaiHttp from 'chai-http'
 import { app } from '../app.js'
 
+chai.use(chaiHttp)
+chai.should()
+
 describe('/GET files', () => {
-  it('it should get a list of Files', async () => {
-    const res = await request.execute(app)
-      .get('/api/files/data');
-    
-    chai.expect(res).to.have.status(200);
-    chai.expect(res.body).to.be.an('array');
-  });
-});
+  it('it should get a list of Files', (done) => {
+    chai
+      .request(app)
+      .get('/api/files/data')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('array');
+        done();
+      })
+  })
+})
