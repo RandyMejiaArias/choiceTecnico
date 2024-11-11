@@ -7,16 +7,12 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "test": "npx mocha --require @babel/register --timeout 15000 src/test/*.js --exit"
+    "test": "npx mocha --require --timeout 15000 src/test/*.js --exit"
   },
   "keywords": [],
   "author": "Randy Mejía Arias",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.25.9",
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "@babel/register": "^7.25.9",
     "nodemon": "^3.1.7",
     "standard": "17.0.0"
   },
