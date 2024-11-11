@@ -21,6 +21,15 @@ jobs:
             npm install 
             npm ls chai
 
+  reinstall_chai:
+    docker:
+      - image: cimg/node:18.20.0
+    steps:
+      - checkout
+      - run:
+          name: Reinstall Chai
+          command: npm install chai --save-dev
+
   run_tests:
     docker:
       - image: cimg/node:18.20.0
@@ -30,7 +39,7 @@ jobs:
       - run:
           name: Ejecutar pruebas
           command: |
-            npx mocha --timeout 15000 --require chai/register src/test/*.js --exit $(circleci tests split --split-by=timings)
+            npx mocha --timeout 15000 src/test/*.js --exit $(circleci tests split --split-by=timings)
 
   setup_env_vars:
     docker:
@@ -57,9 +66,12 @@ workflows:
       - install_dependencies:
           requires:
             - setup
-      - run_tests:
+      - reinstall_chai:
           requires:
             - install_dependencies
+      - run_tests:
+          requires:
+            - reinstall_chai
 
   # Workflow para configurar variables de entorno
   env_workflow:
