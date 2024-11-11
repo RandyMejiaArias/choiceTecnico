@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Ejecutar pruebas
           command: |
-            npx mocha --timeout 15000 src/test/*.js --exit $(circleci tests split --split-by=timings)
+            npx mocha --timeout 15000 --require @babel/register src/test/*.js --exit $(circleci tests split --split-by=timings)
 
   setup_env_vars:
     docker:
