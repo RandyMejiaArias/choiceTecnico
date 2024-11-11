@@ -15,6 +15,10 @@ jobs:
       - image: cimg/node:18.20.0
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
       - run:
           name: Instalar dependencias
           command: | 
