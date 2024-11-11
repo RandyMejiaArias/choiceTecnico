@@ -22,11 +22,13 @@ jobs:
   run_tests:
     docker:
       - image: cimg/node:18.20.0
+    parallelism: 4
     steps:
       - checkout
       - run:
           name: Ejecutar pruebas
-          command: npm run test
+          command: |
+            npm run test $(circleci tests split --split-by=timings)
 
   setup_env_vars:
     docker:
