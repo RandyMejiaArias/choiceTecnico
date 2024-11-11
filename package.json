@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "test": "mocha --timeout 15000 src/test/*.js --exit"
+    "test": "npx mocha --require @babel/register --timeout 15000 src/test/*.js --exit"
   },
   "keywords": [],
   "author": "Randy Mejía Arias",
