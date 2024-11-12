@@ -37,7 +37,12 @@ jobs:
       - checkout
       - run:
           name: Install chai and chai-http explicitly
-          command: npm install chai chai-http
+          command: |
+            npx npm-check-updates -u
+            npm install
+            npm dedupe
+            npm install chai@5.1.2 chai-http@5.1.1
+
 
   run_tests:
     docker:
