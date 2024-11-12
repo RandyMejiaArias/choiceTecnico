@@ -73,18 +73,18 @@ workflows:
   test_workflow:
     jobs:
       - setup
-      - install_dependencies:
+      # - install_dependencies:
+      #     requires:
+      #       - setup
+      - install_dependencies_without_cache:
           requires:
             - setup
       - verify_dependencies:
           requires:
-            - install_dependencies
-      - install_dependencies_without_cache:
-          requires:
-            - verify_dependencies
+            - install_dependencies_without_cache
       - run_tests:
           requires:
-            - install_dependencies_without_cache
+            - verify_dependencies
 
   # Workflow para configurar variables de entorno
   env_workflow:
