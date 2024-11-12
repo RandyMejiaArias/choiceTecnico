@@ -36,9 +36,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Instalar dependencias sin cache
-          command: |
-            npm ci --no-cache
+          name: Install chai and chai-http explicitly
+          command: npm install chai chai-http
 
   run_tests:
     docker:
