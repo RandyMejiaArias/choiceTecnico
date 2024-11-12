@@ -19,7 +19,7 @@ jobs:
           name: Instalar dependencias
           command: | 
             npm install 
-            npm ls chai
+            npm ci
 
   run_tests:
     docker:
