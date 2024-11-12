@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Instalar dependencias sin cache
           command: |
-            npm install --no-cache
+            npm ci --no-cache
 
   run_tests:
     docker:
