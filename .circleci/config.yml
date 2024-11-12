@@ -38,9 +38,7 @@ jobs:
       - run:
           name: Install chai and chai-http explicitly
           command: |
-            npm install
-            npm install -g npm-update-resolutions
-            npm list rimraf
+            npm install -g npm-force-resolutions
 
   install_chai_and_chai_http:
     docker:
@@ -85,12 +83,12 @@ workflows:
   test_workflow:
     jobs:
       - setup
-      - install_npm_force_resolution:
-          requires:
-            - setup
       - install_dependencies:
           requires:
-            - install_npm_force_resolution
+            - setup
+      # - install_dependencies_without_cache:
+      #     requires:
+      #       - setup
       - verify_dependencies:
           requires:
             - install_dependencies
