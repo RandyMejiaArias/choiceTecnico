@@ -38,7 +38,8 @@ jobs:
       - run:
           name: Install chai and chai-http explicitly
           command: |
-            npm install -g npm-force-resolutions
+            npm ci
+            npm list rimraf
 
   install_chai_and_chai_http:
     docker:
