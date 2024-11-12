@@ -30,7 +30,7 @@ jobs:
           command: |
             ls -R node_modules/chai node_modules/chai-http
 
-  install_dependencies_without_cache:
+  install_npm_force_resolution:
     docker:
       - image: cimg/node:18.20.0
     steps:
@@ -38,11 +38,17 @@ jobs:
       - run:
           name: Install chai and chai-http explicitly
           command: |
-            rm -rf package-lock.json node_modules
-            npm install
-            npm dedupe
-            npm install chai@5.1.2 chai-http@5.1.1
+            npm install -g npm-force-resolutions
 
+  install_chai_and_chai_http:
+    docker:
+      - image: cimg/node:18.20.0
+    steps:
+      - checkout
+      - run:
+          name: Install chai and chai-http explicitly
+          command: 
+            npm install chai chai-http
 
   run_tests:
     docker:
@@ -77,15 +83,15 @@ workflows:
   test_workflow:
     jobs:
       - setup
-      # - install_dependencies:
-      #     requires:
-      #       - setup
-      - install_dependencies_without_cache:
+      - install_npm_force_resolution:
           requires:
             - setup
+      - install_dependencies:
+          requires:
+            - install_npm_force_resolution
       - verify_dependencies:
           requires:
-            - install_dependencies_without_cache
+            - install_dependencies
       - run_tests:
           requires:
             - verify_dependencies

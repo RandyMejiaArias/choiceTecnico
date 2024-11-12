@@ -28,6 +28,9 @@
     "mocha": "^10.8.2",
     "morgan": "^1.10.0"
   },
+  "resolutions": {
+    "rimraf": "^4.0.0"
+  },
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"
   }
