@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Ejecutar pruebas
           command: |
-            node -r esm ./node_modules/.bin/mocha src/test/*.js --timeout 15000 src/test/*.js --exit $(circleci tests split --split-by=timings)
+            node --loader ts-node/esm mocha --timeout 15000 src/test/*.js --exit $(circleci tests split --split-by=timings)
 
   setup_env_vars:
     docker:
