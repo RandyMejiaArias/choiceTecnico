@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Install chai and chai-http explicitly
           command: |
-            npx npm-check-updates -u
+            rm -rf package-lock.json node_modules
             npm install
             npm dedupe
             npm install chai@5.1.2 chai-http@5.1.1
