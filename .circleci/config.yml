@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Install chai and chai-http explicitly
           command: |
-            npm ci
+            npm install
             npm list rimraf
 
   install_chai_and_chai_http:
